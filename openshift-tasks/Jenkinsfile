@@ -165,10 +165,10 @@ podTemplate(
 
               // OpenShift 3
               dc.spec.template.spec.containers[0].image="docker-registry.default.svc:5000/${devProject}/tasks:${prodTag}"
-              openshift.set("env", "dc/${destApp}", "VERSION='${prodTag} (${prodProject})'")
 
               openshift.apply(dc)
 
+              openshift.set("env", "dc/${destApp}", "VERSION='${prodTag} (${prodProject}, ${destApp})'")
               // Update Config Map in change config files changed in the source
               openshift.selector("configmap", "${destApp}-config").delete()
               def configmap = openshift.create("configmap", "${destApp}-config", "--from-file=./configuration/application-users.properties", "--from-file=./configuration/application-roles.properties" )
