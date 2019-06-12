@@ -121,12 +121,13 @@ podTemplate(
               def app_running_count = 0
               while (app_running_count != 3) {
                 sleep 3
-                app_running = sh(returnStdout: true, script: "oc get pods -n ${GUID}-tasks-dev | grep tasks | grep -v build | grep -v deploy | grep 1/1 | grep Running | wc -l").trim()
+                app_running = sh(returnStdout: true, script: "bin/check_running_app_status.sh ${devProject} tasks").trim()
                 if(app_running == 1) {
                   app_running_count++
                 }else{
                   app_running_count = 0
                 }
+                echo "app_running_count: ${app_running_count}"
               }
             }
           }
@@ -199,7 +200,7 @@ podTemplate(
               def app_running_count = 0
               while (app_running_count < 3) {
                 sleep 3
-                app_running = sh(returnStdout: true, script: "oc get pods -n ${GUID}-tasks-prod | grep ${destApp} | grep -v build | grep -v deploy | grep 1/1 | grep Running | wc -l").trim()
+                app_running = sh(returnStdout: true, script: "bin/check_running_app_status.sh ${prodProject} ${destApp}").trim()
                 if(app_running == 1) {
                   app_running_count++
                 }else{
