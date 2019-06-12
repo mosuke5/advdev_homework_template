@@ -122,9 +122,12 @@ podTemplate(
               while (app_running_count != 3) {
                 sleep 3
                 app_running = sh(returnStdout: true, script: "../bin/check_running_app_status.sh ${devProject} tasks").trim()
+                echo "app_running: ${app_running}"
                 if(app_running == 1) {
+                  echo "aaaaaa"
                   app_running_count++
                 }else{
+                  echo "bbbbbb"
                   app_running_count = 0
                 }
                 echo "app_running_count: ${app_running_count}"
