@@ -121,7 +121,7 @@ podTemplate(
               def app_running_count = 0
               while (app_running_count != 3) {
                 sleep 3
-                app_running = sh(returnStdout: true, script: "bin/check_running_app_status.sh ${devProject} tasks").trim()
+                app_running = sh(returnStdout: true, script: "../bin/check_running_app_status.sh ${devProject} tasks").trim()
                 if(app_running == 1) {
                   app_running_count++
                 }else{
@@ -200,7 +200,7 @@ podTemplate(
               def app_running_count = 0
               while (app_running_count < 3) {
                 sleep 3
-                app_running = sh(returnStdout: true, script: "bin/check_running_app_status.sh ${prodProject} ${destApp}").trim()
+                app_running = sh(returnStdout: true, script: "../bin/check_running_app_status.sh ${prodProject} ${destApp}").trim()
                 if(app_running == 1) {
                   app_running_count++
                 }else{
